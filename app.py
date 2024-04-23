@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_file
 import boto3
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -41,7 +42,8 @@ def index():
         
         # Upload file to S3
         global uploaded_file_key
-        filename = f"{name}_resume.txt"
+        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        filename = f"{name}_{timestamp}_resume.txt"
         s3.put_object(Body=resume_content, Bucket=S3_BUCKET, Key=filename)
         uploaded_file_key = filename
         
@@ -60,4 +62,4 @@ def download():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
