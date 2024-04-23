@@ -48,21 +48,13 @@ def index():
         return render_template('success.html', filename=filename)
     return render_template('resume_upload.html')
 
-from flask import Response
 
 @app.route('/download', methods=['GET'])
 def download():
-    global uploaded_file_key    
+    global uploaded_file_key
     if uploaded_file_key:
         obj = s3.get_object(Bucket=S3_BUCKET, Key=uploaded_file_key)
-        file_content = obj['Body'].read()
-        return Response(
-            file_content,
-            mimetype='text/plain',
-            headers={
-                "Content-Disposition": f"attachment;filename={uploaded_file_key}"
-            }
-        )
+        return send_file(obj['Body'], as_attachment=True, attachment_filename=uploaded_file_key)
     return "No file uploaded yet."
 
 
