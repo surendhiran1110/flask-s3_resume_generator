@@ -1,6 +1,7 @@
 ﻿# s3-flask_resume_generator
  
-Resume Generator
+Resume Generator:
+
 The Resume Generator is a web application built using Flask, a Python web framework, that allows users to create and upload their resumes easily. The application collects user input such as personal details, education history, work experience, and skills through a user-friendly interface. Once the user submits their information, the application generates a resume in plain text format and uploads it to an AWS S3 bucket.
 
 Features:
